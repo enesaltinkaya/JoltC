@@ -1,11 +1,4 @@
 #pragma once
 
-#ifndef ENSURE_TESTS
-    #define ENSURE_EQUAL(a, b)
-    #define ENSURE_ENUM_EQ(a, b)
-    #define ENSURE_SIZE_ALIGN(a, b)
-    #define ENSURE_FIELD(a, b, c, d)
-#endif
-
-#include "JoltC/Enums.h"
-#include "JoltC/Functions.h"
+#include "Enums.h" // IWYU pragma: keep
+#include "Functions.h" // IWYU pragma: keep

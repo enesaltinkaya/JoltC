@@ -1,9 +1,10 @@
 #pragma once
 
+#include "Enums.h"
 #include <stdalign.h>
 #include <stdbool.h>
 #include <stddef.h>
-#include <stdint.h>
+
 
 #ifdef _MSC_VER
 	#define JPC_API extern __declspec(dllexport)
@@ -11,7 +12,6 @@
 	#define JPC_API
 #endif
 
-static float JPC_PI = 3.14159265358979323846f;
 
 // C-compatible typedefs that match Jolt's internal primitive typedefs.
 #define uint unsigned int
@@ -20,11 +20,11 @@ static float JPC_PI = 3.14159265358979323846f;
 extern "C" {
 #endif
 
-JPC_API void JPC_RegisterDefaultAllocator();
-JPC_API void JPC_FactoryInit();
-JPC_API void JPC_FactoryDelete();
-JPC_API void JPC_RegisterTypes();
-JPC_API void JPC_UnregisterTypes();
+JPC_API void JPC_RegisterDefaultAllocator(void);
+JPC_API void JPC_FactoryInit(void);
+JPC_API void JPC_FactoryDelete(void);
+JPC_API void JPC_RegisterTypes(void);
+JPC_API void JPC_UnregisterTypes(void);
 
 ////////////////////////////////////////////////////////////////////////////////
 // Primitive types
@@ -35,7 +35,6 @@ typedef struct JPC_Float3 {
 	float z;
 } JPC_Float3;
 
-ENSURE_SIZE_ALIGN(JPC_Float3, JPH::Float3)
 
 typedef struct JPC_Vec3 {
 	alignas(16) float x;
@@ -44,7 +43,6 @@ typedef struct JPC_Vec3 {
 	float _w;
 } JPC_Vec3;
 
-ENSURE_SIZE_ALIGN(JPC_Vec3, JPH::Vec3)
 
 typedef struct JPC_Vec4 {
 	alignas(16) float x;
@@ -53,7 +51,6 @@ typedef struct JPC_Vec4 {
 	float w;
 } JPC_Vec4;
 
-ENSURE_SIZE_ALIGN(JPC_Vec4, JPH::Vec4)
 
 typedef struct JPC_DVec3 {
 	alignas(32) double x;
@@ -62,7 +59,6 @@ typedef struct JPC_DVec3 {
 	double _w;
 } JPC_DVec3;
 
-ENSURE_SIZE_ALIGN(JPC_DVec3, JPH::DVec3)
 
 typedef struct JPC_Quat {
 	alignas(16) float x;
@@ -71,20 +67,17 @@ typedef struct JPC_Quat {
 	float w;
 } JPC_Quat;
 
-ENSURE_SIZE_ALIGN(JPC_Quat, JPH::Quat)
 
 typedef struct JPC_Mat44 {
 	alignas(16) JPC_Vec4 matrix[4];
 } JPC_Mat44;
 
-ENSURE_SIZE_ALIGN(JPC_Mat44, JPH::Mat44)
 
 typedef struct JPC_DMat44 {
 	alignas(32) JPC_Vec4 col[3];
 	JPC_DVec3 col3;
 } JPC_DMat44;
 
-ENSURE_SIZE_ALIGN(JPC_DMat44, JPH::DMat44)
 
 typedef struct JPC_Color {
 	alignas(uint32_t) uint8_t r;
@@ -93,7 +86,6 @@ typedef struct JPC_Color {
 	uint8_t a;
 } JPC_Color;
 
-ENSURE_SIZE_ALIGN(JPC_Color, JPH::Color)
 
 #ifdef JPC_DOUBLE_PRECISION
 	typedef JPC_DVec3 JPC_RVec3;
@@ -105,16 +97,12 @@ ENSURE_SIZE_ALIGN(JPC_Color, JPH::Color)
 	typedef float Real;
 #endif
 
-ENSURE_SIZE_ALIGN(JPC_RVec3, JPH::RVec3)
 
 typedef uint32_t JPC_BodyID;
-ENSURE_SIZE_ALIGN(JPC_BodyID, JPH::BodyID)
 
 typedef uint32_t JPC_SubShapeID;
-ENSURE_SIZE_ALIGN(JPC_SubShapeID, JPH::SubShapeID)
 
 typedef uint8_t JPC_BroadPhaseLayer;
-ENSURE_SIZE_ALIGN(JPC_BroadPhaseLayer, JPH::BroadPhaseLayer)
 
 #ifndef JPC_OBJECT_LAYER_BITS
 	#define JPC_OBJECT_LAYER_BITS 16
@@ -128,20 +116,17 @@ ENSURE_SIZE_ALIGN(JPC_BroadPhaseLayer, JPH::BroadPhaseLayer)
 	#error "JPC_OBJECT_LAYER_BITS must be 16 or 32"
 #endif
 
-ENSURE_SIZE_ALIGN(JPC_ObjectLayer, JPH::ObjectLayer)
 
 typedef struct JPC_IndexedTriangleNoMaterial {
 	uint32_t idx[3];
 } JPC_IndexedTriangleNoMaterial;
 
-ENSURE_SIZE_ALIGN(JPC_IndexedTriangleNoMaterial, JPH::IndexedTriangleNoMaterial)
 
 typedef struct JPC_IndexedTriangle {
 	uint32_t idx[3];
 	uint32_t materialIndex;
 } JPC_IndexedTriangle;
 
-ENSURE_SIZE_ALIGN(JPC_IndexedTriangle, JPH::IndexedTriangle)
 
 typedef struct JPC_RayCast {
 	JPC_Vec3 Origin;
@@ -318,7 +303,6 @@ typedef struct JPC_BodyManager_DrawSettings {
 	bool mDrawSoftBodyPredictedBounds;
 } JPC_BodyManager_DrawSettings;
 
-ENSURE_SIZE_ALIGN(JPC_BodyManager_DrawSettings, JPH::BodyManager::DrawSettings)
 
 JPC_API void JPC_BodyManager_DrawSettings_default(JPC_BodyManager_DrawSettings* object);
 

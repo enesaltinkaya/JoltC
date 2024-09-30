@@ -30,12 +30,15 @@ add_library(joltc STATIC
     JoltC/JoltC.cpp
     JoltC/Enums.h
     JoltC/Functions.h
-    JoltC/Test.cpp
 )
 
 target_compile_features(joltc PUBLIC cxx_std_17)
 target_include_directories(joltc PUBLIC . JoltPhysics)
-target_link_libraries(joltc PUBLIC Jolt)
+if (WIN32)
+    target_link_libraries(joltc PUBLIC ../../libs-win/libJolt.a)
+else ()
+    target_link_libraries(joltc PUBLIC ../../libs-linux/libJolt.a)
+endif ()
 
 install(TARGETS joltc DESTINATION lib)
 
@@ -56,19 +59,19 @@ if (OBJECT_LAYER_BITS)
     target_compile_definitions(joltc PUBLIC JPC_OBJECT_LAYER_BITS=${OBJECT_LAYER_BITS})
 endif()
 
-if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
-    add_executable(HelloWorld
-        HelloWorld/main.cpp
-    )
+# if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+#     add_executable(HelloWorld
+#         HelloWorld/main.cpp
+#     )
 
-    # cxx_std_20 gives us designated initializers, bringing us closer to Actual C.
-    target_compile_features(HelloWorld PRIVATE cxx_std_20)
+#     # cxx_std_20 gives us designated initializers, bringing us closer to Actual C.
+#     target_compile_features(HelloWorld PRIVATE cxx_std_20)
 
-    # Eventually we should switch back to Actual C:
-    # set_property(TARGET HelloWorld PROPERTY C_STANDARD 23)
+#     # Eventually we should switch back to Actual C:
+#     # set_property(TARGET HelloWorld PROPERTY C_STANDARD 23)
 
-    target_include_directories(HelloWorld PUBLIC .)
-    target_link_libraries(HelloWorld PUBLIC joltc)
-endif()
+#     target_include_directories(HelloWorld PUBLIC .)
+#     target_link_libraries(HelloWorld PUBLIC joltc)
+# endif()
 
-add_subdirectory(JoltPhysics/Build)
+# add_subdirectory(JoltPhysics/Build)
