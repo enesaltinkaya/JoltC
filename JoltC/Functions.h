@@ -14,7 +14,7 @@
 
 
 // C-compatible typedefs that match Jolt's internal primitive typedefs.
-#define uint unsigned int
+// #define uint unsigned int
 
 #ifdef __cplusplus
 extern "C" {
@@ -167,7 +167,7 @@ JPC_API void JPC_IndexedTriangleList_delete(JPC_IndexedTriangleList* object);
 
 typedef struct JPC_TempAllocatorImpl JPC_TempAllocatorImpl;
 
-JPC_API JPC_TempAllocatorImpl* JPC_TempAllocatorImpl_new(uint size);
+JPC_API JPC_TempAllocatorImpl* JPC_TempAllocatorImpl_new(unsigned int size);
 JPC_API void JPC_TempAllocatorImpl_delete(JPC_TempAllocatorImpl* object);
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -176,11 +176,11 @@ JPC_API void JPC_TempAllocatorImpl_delete(JPC_TempAllocatorImpl* object);
 typedef struct JPC_JobSystemThreadPool JPC_JobSystemThreadPool;
 
 JPC_API JPC_JobSystemThreadPool* JPC_JobSystemThreadPool_new2(
-	uint inMaxJobs,
-	uint inMaxBarriers);
+	unsigned int inMaxJobs,
+	unsigned int inMaxBarriers);
 JPC_API JPC_JobSystemThreadPool* JPC_JobSystemThreadPool_new3(
-	uint inMaxJobs,
-	uint inMaxBarriers,
+	unsigned int inMaxJobs,
+	unsigned int inMaxBarriers,
 	int inNumThreads);
 
 JPC_API void JPC_JobSystemThreadPool_delete(JPC_JobSystemThreadPool* object);
@@ -189,7 +189,7 @@ JPC_API void JPC_JobSystemThreadPool_delete(JPC_JobSystemThreadPool* object);
 // BroadPhaseLayerInterface
 
 typedef struct JPC_BroadPhaseLayerInterfaceFns {
-	uint (*GetNumBroadPhaseLayers)(const void *self);
+	unsigned int (*GetNumBroadPhaseLayers)(const void *self);
 	JPC_BroadPhaseLayer (*GetBroadPhaseLayer)(const void *self, JPC_ObjectLayer inLayer);
 } JPC_BroadPhaseLayerInterfaceFns;
 
@@ -535,8 +535,8 @@ typedef struct JPC_BodyCreationSettings {
 	float MaxLinearVelocity;
 	float MaxAngularVelocity;
 	float GravityFactor;
-	uint NumVelocityStepsOverride;
-	uint NumPositionStepsOverride;
+	unsigned int NumVelocityStepsOverride;
+	unsigned int NumPositionStepsOverride;
 	JPC_OverrideMassProperties OverrideMassProperties;
 	float InertiaMultiplier;
 
@@ -771,10 +771,10 @@ JPC_API JPC_PhysicsSystem* JPC_PhysicsSystem_new();
 JPC_API void JPC_PhysicsSystem_delete(JPC_PhysicsSystem* object);
 JPC_API void JPC_PhysicsSystem_Init(
 	JPC_PhysicsSystem* self,
-	uint inMaxBodies,
-	uint inNumBodyMutexes,
-	uint inMaxBodyPairs,
-	uint inMaxContactConstraints,
+	unsigned int inMaxBodies,
+	unsigned int inNumBodyMutexes,
+	unsigned int inMaxBodyPairs,
+	unsigned int inMaxContactConstraints,
 	JPC_BroadPhaseLayerInterface* inBroadPhaseLayerInterface,
 	JPC_ObjectVsBroadPhaseLayerFilter* inObjectVsBroadPhaseLayerFilter,
 	JPC_ObjectLayerPairFilter* inObjectLayerPairFilter);

@@ -218,7 +218,7 @@ JPC_API JPC_IndexedTriangleList* JPC_IndexedTriangleList_new(const JPC_IndexedTr
 ////////////////////////////////////////////////////////////////////////////////
 // TempAllocatorImpl
 
-JPC_API JPC_TempAllocatorImpl* JPC_TempAllocatorImpl_new(uint size) {
+JPC_API JPC_TempAllocatorImpl* JPC_TempAllocatorImpl_new(unsigned int size) {
 	return to_jpc(new JPH::TempAllocatorImpl(size));
 }
 
@@ -226,15 +226,15 @@ JPC_API JPC_TempAllocatorImpl* JPC_TempAllocatorImpl_new(uint size) {
 // JobSystemThreadPool
 
 JPC_API JPC_JobSystemThreadPool* JPC_JobSystemThreadPool_new2(
-	uint inMaxJobs,
-	uint inMaxBarriers)
+	unsigned int inMaxJobs,
+	unsigned int inMaxBarriers)
 {
 	return to_jpc(new JPH::JobSystemThreadPool(inMaxJobs, inMaxBarriers));
 }
 
 JPC_API JPC_JobSystemThreadPool* JPC_JobSystemThreadPool_new3(
-	uint inMaxJobs,
-	uint inMaxBarriers,
+	unsigned int inMaxJobs,
+	unsigned int inMaxBarriers,
 	int inNumThreads)
 {
 	return to_jpc(new JPH::JobSystemThreadPool(inMaxJobs, inMaxBarriers, inNumThreads));
@@ -247,7 +247,7 @@ class JPC_BroadPhaseLayerInterfaceBridge final : public JPH::BroadPhaseLayerInte
 public:
 	explicit JPC_BroadPhaseLayerInterfaceBridge(const void *self, JPC_BroadPhaseLayerInterfaceFns fns) : self(self), fns(fns) {}
 
-	virtual uint GetNumBroadPhaseLayers() const override {
+	virtual unsigned int GetNumBroadPhaseLayers() const override {
 		return fns.GetNumBroadPhaseLayers(self);
 	}
 
@@ -1423,10 +1423,10 @@ JPC_API JPC_PhysicsSystem* JPC_PhysicsSystem_new() {
 
 JPC_API void JPC_PhysicsSystem_Init(
 	JPC_PhysicsSystem* self,
-	uint inMaxBodies,
-	uint inNumBodyMutexes,
-	uint inMaxBodyPairs,
-	uint inMaxContactConstraints,
+	unsigned int inMaxBodies,
+	unsigned int inNumBodyMutexes,
+	unsigned int inMaxBodyPairs,
+	unsigned int inMaxContactConstraints,
 	JPC_BroadPhaseLayerInterface* inBroadPhaseLayerInterface,
 	JPC_ObjectVsBroadPhaseLayerFilter* inObjectVsBroadPhaseLayerFilter,
 	JPC_ObjectLayerPairFilter* inObjectLayerPairFilter)
